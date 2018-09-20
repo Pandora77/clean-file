@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Signin</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="shortcut icon" sizes="16x16 24x24 32x32 48x48 64x64 96x96" href="https://scotch.io/favicon.ico">
+
+    <!-- Font Stuff -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:400,300,600">
+
+    <!-- CSS Stuff -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.css">
+    <link rel="stylesheet" href="css/signin.css">
+</head>
+<body>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <form id="signinForm">
+                    <div class="four columns">
+
+                        <div class="sidebar">
+
+                            <p><strong>Login</strong> <i>You are Welcome</i></p>
+
+                            <hr>
+
+                            <h4>Введіть свої дані</h4>
+                            <form>
+  
+                                <input type="email" name="email" placeholder="Your Email Address" required>
+                                <input type="text" name="password" placeholder="Your Pass" required>
+
+                                <button type="submit" class="button-primary">Увійти <i class="fa fa-arrow-right"></i></button>
+                            </form>
+
+
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/power.js"></script>
+    <script src="js/jquery.min.js"></script>
+    
+    <script>
+        let serverUrl = 'http://localhost:9999/auth/';
+
+        $(document).ready(function(e) {
+            $('#signinForm').submit(function(e) {
+                e.preventDefault();
+                signin();
+            })
+        });
+
+        function signin() {
+            let loginData = {
+                username: $('#username').val(),
+                password: $('#password').val()
+            };
+
+            $.ajax({
+                url: serverUrl + 'signin',
+                method: 'POST',
+                data: JSON.stringify(loginData),
+                contentType: 'application/json',
+                complete: function(data) {
+                    if(data.status == 200) {
+                        window.localStorage.setItem('auth_token', data.responseJSON.token);
+                        $(location).attr('href', 'index.html');
+                    }
+                }
+            })
+
+        }
+    </script>
+</body>
+</html>

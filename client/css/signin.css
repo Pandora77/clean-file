@@ -1,0 +1,123 @@
+/* Base Stuff */
+html {
+    box-sizing: border-box;
+}
+*, *:before, *:after {
+    box-sizing: inherit;
+}
+img {
+    max-width: 100%;
+}
+body {
+    background: #f8fbff;
+    transition: background 5s ease;
+}
+body.turn-the-lights-off {
+    background: #020d1b;
+}
+a {
+    transition: all 225ms ease;
+}
+h1 {
+    font-size: 7rem;
+}
+h2, h3, h4 {
+    margin-top: 4rem;
+}
+h4 {
+    text-transform: uppercase;
+    font-size: 1.4rem;
+    letter-spacing: 0.2rem;
+    font-weight: 600;
+}
+
+
+/* Sidebar */
+
+.sidebar{
+    display: block;
+    text-align: left;
+    border-radius: 10em;
+    margin-left: 20px;
+}
+
+.sidebar h4 {
+    margin-top: 0;
+}
+.sidebar form {
+    margin: 0;
+}
+.sidebar input[type="email"],
+.sidebar input[type="text"],
+.sidebar textarea,
+.sidebar select,
+.sidebar button {
+    width: 100%;
+    margin-bottom: 0.6rem;
+}
+
+
+
+/* Preview for Form */
+.letter-preview {
+    background: #f1e8f7;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 15px;
+    color: #888e9a;
+    font-size: 80%;
+
+    animation-duration: 625ms;
+    animation-fill-mode: both;
+    animation-name: fade-in-down;
+
+    display: none;
+}
+.letter-preview.show-me { display: block; }
+.letter-preview h4 { margin-bottom: 0; }
+.fade-in-down {
+    animation-duration: 225ms;
+    animation-fill-mode: both;
+    animation-name: fade-in-down;
+}
+@keyframes fade-in-down {
+    0% {
+        opacity: 0.5;
+        transform: translate3d(0, -5%, 0);
+    }
+
+    100% {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+
+/*==================================
+=            TWEET CODE            =
+==================================*/
+.tweet {
+    background: #f7f7f7;
+    padding: 10px;
+    border-radius: 15px;
+    margin-bottom: 5px;
+}
+.tweets i {
+    color: #0084b4;
+    font-size: 25px;
+}
+.tweets p {
+    font-style: italic;
+    color: #0084b4;
+    margin-bottom: 5px;
+    font-size: 15px;
+}
+.tweets p a {
+    font-weight: 700;
+}
+.tweets h4 {
+    margin: 0;
+    font-size: 10px;
+    letter-spacing: -0.025rem;
+}
+

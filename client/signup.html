@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Signup</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="shortcut icon" sizes="16x16 24x24 32x32 48x48 64x64 96x96" href="https://scotch.io/favicon.ico">
+
+    <!-- Font Stuff -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:400,300,600">
+
+    <!-- CSS Stuff -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.css">
+    <link rel="stylesheet" href="css/signin.css">
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <form id="signupForm">
+                    <div class="four columns">
+
+        <div class="sidebar">
+
+            <p><strong>Login</strong> <i>You are Welcome</i></p>
+
+            <hr>
+
+            <h4>Введіть свої дані</h4>
+            <form>
+
+                <label id="is-author-checkbox">
+                    <input type="checkbox" name="is_author">
+                    <span class="label-body">Ви вперше на нашому сайті?</span>
+                 </label>
+
+                <select name="reason" data-where-to-send="reason">
+                    <option value="" disabled selected>Виберіть курс</option>
+                    <option value="I love you">Німецька</option>
+                    <option value="Want to say what up yo">Англійська</option>
+                    <option value="I am spam attacking you!!!11one">Французька</option>
+                </select>
+
+                <input type="text" name="name" placeholder="Your Name" required>
+                <input type="email" name="email" placeholder="Your Email Address" required>
+                <input type="text" name="phone" placeholder="Your Phone" required>
+
+                <textarea data-where-to-send="message" name="message" placeholder="Your Message"></textarea>
+
+
+
+                <button type="submit" class="button-primary">Надіслати <i class="fa fa-arrow-right"></i></button>
+            </form>
+
+            <div class="letter-preview">
+
+                <h4>Reason</h4>
+                <p class="reason"></p>
+
+                <h4>Your Message</h4>
+                <p class="message"></p>
+
+            </div>
+
+
+        
+
+            <h3>Чекаємо вас!</h3>
+
+            <div class="tweets">
+            </div>
+
+
+
+            <template id="twitter-template">
+                <div class="tweet">
+                    <i class="fa fa-twitter"></i>
+                    <p>{text}</p>
+                    <h4>
+                        <a href="https://twitter.com/{who}">@{who}</a>
+                        on {when}
+                    </h4>
+                 </div>
+            </template>
+
+
+
+
+        </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/power.js"></script>
+    <script src="js/jquery.min.js"></script>
+    <script>
+        let serverUrl = 'http://localhost:9999/';
+        $(document).ready(function(e) {
+            $('#signupForm input[type="submit"]').prop('disabled', true);
+
+
+            $('#password, #passwordConfirm').on('keyup', function(e) {
+                if($('#password').val() == $('#passwordConfirm').val()) {
+                    $('#signupForm input[type="submit"]').prop('disabled', false);
+                    $('#message').html('Passwords match').css('color', 'green');
+                } else {
+                    $('#signupForm input[type="submit"]').prop('disabled', true);
+                    $('#message').html('Passwords not match').css('color', 'red');
+                }
+            });
+
+            $('#signupForm').submit(function(e) {
+                e.preventDefault();
+                signup();
+            });
+        });
+
+        function signup() {
+            let user = {
+                firstName: $('#firstName').val(),
+                lastName: $('#lastName').val(),
+                username: $('#username').val(),
+                password: $('#password').val()
+            };
+
+            $.ajax({
+                url: serverUrl + 'auth/signup',
+                method: 'POST',
+                data: JSON.stringify(user),
+                contentType: 'application/json',
+                complete: function(data) {
+                    if(data.status == 500) {
+                        console.log('Error');
+                    }
+
+                    if(data.status == 201) {
+                        $(location).attr('href', 'signin.html');
+                    }
+                }
+            })
+        }
+    </script>
+</body>
+
+</html>
